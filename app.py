@@ -132,9 +132,8 @@ class Report(db.Model):
 
 	sent_by = db.Column(db.Integer, db.ForeignKey("allies.id"))
 	sender = db.relationship("Ally", backref = "allies", lazy = False)
-	
 	recording = db.Column(db.Integer)
-
+	transcription = db.Column(db.String(64))
 	type = db.Column(db.String(50))
 
 	__mapper_args__ = {
@@ -158,6 +157,7 @@ def get_reports():
 			'action': report.sender.action
 		} if report.sender else None,
 		'recording': report.recording, 
+		'transcription': report.transcription,
 		'type': report.type
 	} for report in reports])
 
@@ -177,7 +177,8 @@ def get_report(id):
 				'situation': report.sender.situation,
 				'action': report.sender.action
 			} if report.sender else None,
-			'recording': report.recording, 
+			'recording': report.recording,
+			'transcription': report.transcription,
 			'type': report.type
 		})
 	else:
@@ -421,79 +422,90 @@ if __name__ == '__main__':
 	app.run(host='0.0.0.0')
 	with app.app_context():
 		...
-		# # Fetch and print all reports
-		# reports = get_reports().get_json()
-		# print(reports)
-		# for r in reports:
-		# 	report = get_report(r['id'])
-		# 	print(report.get_json())
+		# Fetch and print all reports
+		print("REPORT")
+		reports = get_reports().get_json()
+		print(reports)
+		for r in reports:
+			report = get_report(r['id'])
+			print(report.get_json())
 
-		# # Fetch and print all points
-		# points = get_points().get_json()
-		# print(points)
-		# for p in points:
-		# 	point = get_point(p['id'])
-		# 	print(point.get_json())
+		# Fetch and print all points
+		print("POINT")
+		points = get_points().get_json()
+		print(points)
+		for p in points:
+			point = get_point(p['id'])
+			print(point.get_json())
 
-		# # Fetch and print all allies
-		# allies = get_allies().get_json()
-		# print(allies)
-		# for a in allies:
-		# 	ally = get_ally(a['id'])
-		# 	print(ally.get_json())
+		# Fetch and print all allies
+		print("ALLY")
+		allies = get_allies().get_json()
+		print(allies)
+		for a in allies:
+			ally = get_ally(a['id'])
+			print(ally.get_json())
 
-		# # Fetch and print all enemies
-		# enemies = get_enemies().get_json()
-		# print(enemies)
-		# for e in enemies:
-		# 	enemy = get_enemy(e['id'])
-		# 	print(enemy.get_json())
+		# Fetch and print all enemies
+		print("ENEMY")
+		enemies = get_enemies().get_json()
+		print(enemies)
+		for e in enemies:
+			enemy = get_enemy(e['id'])
+			print(enemy.get_json())
 
-		# # Fetch and print all evacuations
-		# evacuations = get_evacuations().get_json()
-		# print(evacuations)
-		# for e in evacuations:
-		# 	evacuation = get_evacuation(e['id'])
-		# 	print(evacuation.get_json())
+		# Fetch and print all evacuations
+		print("EVACUATION")
+		evacuations = get_evacuations().get_json()
+		print(evacuations)
+		for e in evacuations:
+			evacuation = get_evacuation(e['id'])
+			print(evacuation.get_json())
 
-		# # Fetch and print all GOTWA reports
-		# gotwa_reports = get_gotwa_reports().get_json()
-		# print(gotwa_reports)
-		# for g in gotwa_reports:
-		# 	gotwa = get_gotwa(g['id'])
-		# 	print(gotwa.get_json())
+		# Fetch and print all GOTWA reports
+		print("GOTWA")
+		gotwa_reports = get_gotwa_reports().get_json()
+		print(gotwa_reports)
+		for g in gotwa_reports:
+			gotwa = get_gotwa(g['id'])
+			print(gotwa.get_json())
 
-		# # Fetch and print all LACE reports
-		# lace_reports = get_lace_reports().get_json()
-		# print(lace_reports)
-		# for l in lace_reports:
-		# 	lace = get_lace(l['id'])
-		# 	print(lace.get_json())
+		# Fetch and print all LACE reports
+		print("LACE")
+		lace_reports = get_lace_reports().get_json()
+		print(lace_reports)
+		for l in lace_reports:
+			lace = get_lace(l['id'])
+			print(lace.get_json())
 
-		# # Fetch and print all SALTR reports
-		# saltr_reports = get_saltr_reports().get_json()
-		# print(saltr_reports)
-		# for s in saltr_reports:
-		# 	saltr = get_saltr(s['id'])
-		# 	print(saltr.get_json())
+		# Fetch and print all SALTR reports
+		print("SALTR")
+		saltr_reports = get_saltr_reports().get_json()
+		print(saltr_reports)
+		for s in saltr_reports:
+			saltr = get_saltr(s['id'])
+			print(saltr.get_json())
 
-		# # Fetch and print all SALUTE reports
-		# salute_reports = get_salute_reports().get_json()
-		# print(salute_reports)
-		# for s in salute_reports:
-		# 	salute = get_salute(s['id'])
-		# 	print(salute.get_json())
+		# Fetch and print all SALUTE reports
+		print("SALUTE")
+		salute_reports = get_salute_reports().get_json()
+		print(salute_reports)
+		for s in salute_reports:
+			salute = get_salute(s['id'])
+			print(salute.get_json())
 
-		# # Fetch and print all SAS reports
-		# sas_reports = get_sas_reports().get_json()
-		# print(sas_reports)
-		# for s in sas_reports:
-		# 	sas = get_sas(s['id'])
-		# 	print(sas.get_json())
+		# Fetch and print all SAS reports
+		print("SAS")
+		sas_reports = get_sas_reports().get_json()
+		print(sas_reports)
+		for s in sas_reports:
+			sas = get_sas(s['id'])
+			print(sas.get_json())
 
-		# # Fetch and print all SLLS reports
-		# slls_reports = get_slls_reports().get_json()
-		# print(slls_reports)
-		# for s in slls_reports:
-		# 	slls = get_slls(s['id'])
-		# 	print(slls.get_json())
+		# Fetch and print all SLLS reports
+		print("SLLS")
+		slls_reports = get_slls_reports().get_json()
+		print(slls_reports)
+		for s in slls_reports:
+			slls = get_slls(s['id'])
+			print(slls.get_json())
