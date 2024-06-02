@@ -132,7 +132,7 @@ class Report(db.Model):
 
 	sent_by = db.Column(db.Integer, db.ForeignKey("allies.id"))
 	sender = db.relationship("Ally", backref = "allies", lazy = False)
-	recording = db.Column(db.Integer)
+	recording = db.Column(db.Text)
 	transcription = db.Column(db.String(64))
 	type = db.Column(db.String(50))
 
