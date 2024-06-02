@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 import sys
@@ -417,6 +417,35 @@ def get_slls(id):
 		})
 	else:
 		return jsonify({'error': 'SLLS not found'}), 404
+
+@app.route('/')
+def index():
+    endpoints = {
+        'points': url_for('get_points', _external=True),
+        'point': url_for('get_point', id=1, _external=True),  # Example with id
+        'allies': url_for('get_allies', _external=True),
+        'ally': url_for('get_ally', id=1, _external=True),  # Example with id
+        'enemies': url_for('get_enemies', _external=True),
+        'enemy': url_for('get_enemy', id=1, _external=True),  # Example with id
+        'evacuations': url_for('get_evacuations', _external=True),
+        'evacuation': url_for('get_evacuation', id=1, _external=True),  # Example with id
+        'reports': url_for('get_reports', _external=True),
+        'report': url_for('get_report', id=1, _external=True),  # Example with id
+        'gotwa_reports': url_for('get_gotwa_reports', _external=True),
+        'gotwa': url_for('get_gotwa', id=1, _external=True),  # Example with id
+        'lace_reports': url_for('get_lace_reports', _external=True),
+        'lace': url_for('get_lace', id=1, _external=True),  # Example with id
+        'saltr_reports': url_for('get_saltr_reports', _external=True),
+        'saltr': url_for('get_saltr', id=1, _external=True),  # Example with id
+        'salute_reports': url_for('get_salute_reports', _external=True),
+        'salute': url_for('get_salute', id=1, _external=True),  # Example with id
+        'sas_reports': url_for('get_sas_reports', _external=True),
+        'sas': url_for('get_sas', id=1, _external=True),  # Example with id
+        'slls_reports': url_for('get_slls_reports', _external=True),
+        'slls': url_for('get_slls', id=1, _external=True)  # Example with id
+    }
+    html_links = ''.join([f'<a href="{url}">{name}</a><br>' for name, url in endpoints.items()])
+    return html_links
 	
 if __name__ == '__main__':
 	app.run(host='0.0.0.0')
